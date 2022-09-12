@@ -1,4 +1,8 @@
-FROM openjdk:8
-EXPOSE 8080
-ADD target/docker-jenkins.jar docker-jenkins.jar
-ENTRYPOINT ["java","-jar","/docker-jenkins.jar"]
+FROM docker-jenkins
+WORKDIR /src/test/java
+ADD . /src/test/java
+RUN pip install -r requirements.txt
+EXPOSE 80
+ENV NAME world
+CMD [“docker-jenkins”, “test.java”]
+
